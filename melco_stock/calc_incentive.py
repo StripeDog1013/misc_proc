@@ -49,7 +49,7 @@ if __name__ == "__main__":
   start_day = 25
   months = calculate_months_from_start(2017, 6, 25)
   today = date.today()
-  print("================================================")
+  print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
   print(f"{start_year}年{start_month}月{start_day}日から{today.year}年{today.month}月{today.day}日までの月数: {months}ヶ月")
   print("================================================")
   
@@ -58,4 +58,4 @@ if __name__ == "__main__":
   print(f"最初の奨励金: {initial_incentive}% ({initial_months}ヶ月)")
   print(f"増加後の奨励金: {increased_incentive}% ({increased_months}ヶ月)")
   print(f"奨励金の平均: {average_incentive:.2f}%")
-  print("================================================")
+  print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
