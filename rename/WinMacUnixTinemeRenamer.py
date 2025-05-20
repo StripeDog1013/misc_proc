@@ -51,7 +51,9 @@ try:
             else:
                 print(f"フォーマット形式が対象外のためスルー:{file.name} --> {e}")
                 cnt_err += 1
-    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n成功:{cnt_success:3d}、失敗:{cnt_err:3d}、除外:{cnt_skip:3d}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print(f"成功:{cnt_success:3d}、失敗:{cnt_err:3d}、除外:{cnt_skip:3d} ===> 合計:{cnt_success+cnt_err+cnt_skip:3d}")
+    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     
 except Exception as e:
     print(f"初期化エラー: {e}")
