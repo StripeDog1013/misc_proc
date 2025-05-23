@@ -22,7 +22,14 @@ def move_file(base_path, filename):
         return
 
     yyyy, mm, _ = date_match.groups()
-    target_dir = os.path.join(base_path, yyyy, mm)
+
+    # フォルダの末尾が対象年(yyyy)と一致する場合はMMだけで振り分け
+    base_name = os.path.basename(os.path.normpath(base_path))
+    if base_name == yyyy:
+        target_dir = os.path.join(base_path, mm)
+    else:
+        target_dir = os.path.join(base_path, yyyy, mm)
+
     os.makedirs(target_dir, exist_ok=True)
 
     src = os.path.join(base_path, filename)
@@ -37,7 +44,7 @@ def move_file(base_path, filename):
         count += 1
 
     shutil.move(src, dst)
-    print(f"{filename} ===> {dst}")
+    print(f"Moved: {filename} ===> {dst}")
 
 def main():
     args = parse_arguments()
