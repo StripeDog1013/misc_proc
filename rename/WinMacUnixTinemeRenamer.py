@@ -46,14 +46,14 @@ try:
             cnt_success += 1
         except Exception as e:
             if args.verbose == True:
-                print(f"フォーマット形式が対象外のためスルー:{file.name} ")
+                print(f"フォーマット形式対象外:{file.name} ")
                 cnt_skip += 1
             else:
-                print(f"フォーマット形式が対象外のためスルー:{file.name} --> {e}")
+                print(f"フォーマット形式対象外:{file.name} --> {e}")
                 cnt_err += 1
-    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     print(f"成功:{cnt_success:3d}、失敗:{cnt_err:3d}、除外:{cnt_skip:3d} ===> 合計:{cnt_success+cnt_err+cnt_skip:3d}")
-    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
     
 except Exception as e:
     print(f"初期化エラー: {e}")

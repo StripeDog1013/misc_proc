@@ -1,7 +1,9 @@
 import argparse
 import yfinance as yf
 from datetime import datetime
-
+import time # timeモジュールを追加
+import sys # sysモジュールを追加
+from tqdm import tqdm
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='積立シミュレーション（株価変動＋賞与対応）')
@@ -17,11 +19,22 @@ def calculate_months_since_june_2017():
     return (now.year - start.year) * 12 + (now.month - start.month)
 
 
-def fetch_monthly_prices(ticker_symbol="6503.T", months=93):
+def fetch_monthly_prices(ticker_symbol="6503.T", months=93, retries=5, delay=10): # retriesとdelayを追加
     ticker = yf.Ticker(ticker_symbol)
-    hist = ticker.history(period=f"{months}mo", interval="1mo")
-    prices = hist['Close'].tolist()
-    return prices[-months:]
+    for i in tqdm(range(retries)):
+        try:
+            hist = ticker.history(period=f"{months}mo", interval="1mo")
+            prices = hist['Close'].tolist()
+            return prices[-months:]
+        except yf.exceptions.YFRateLimitError:
+            # print(f"レート制限に達しました。{delay}秒待機して再試行します... (残り{retries - 1 - i}回)")
+            time.sleep(delay)
+        except Exception as e:
+            print(f"株価データの取得中に予期せぬエラーが発生しました: {e}")
+            print(f"再試行します... (残り{retries - 1 - i}回)")
+            time.sleep(delay) # その他のエラーでも待機
+    print(f"エラー: {retries}回の再試行後も株価データを取得できませんでした。")
+    sys.exit(1) # エラーが発生した場合はプログラムを終了する
 
 
 def simulate_accumulation(prices, personal, bonus_amount, ratio):
@@ -46,10 +59,14 @@ def main():
     bonus = args.bonus
     months = calculate_months_since_june_2017()
 
+    print(f"過去 {months} ヶ月分の株価データを取得中...")
     prices = fetch_monthly_prices(months=months)
+    
     if len(prices) < months:
-        print(f"取得できた株価データが不足しています（{len(prices)}ヶ月分）")
-        return
+        print(f"取得できた株価データが不足しています（{len(prices)}ヶ月分）。正確なシミュレーションができません。")
+        # ここでプログラムを終了するか、取得できたデータで続行するか判断
+        # 今回は警告を出して続行する
+        pass
     
     print("\n--- 情報 ---")
     print(f"【積立期間: {months} ヶ月（賞与月に賞与拠出）】")
