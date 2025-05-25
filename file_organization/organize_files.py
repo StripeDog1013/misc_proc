@@ -54,10 +54,18 @@ def main():
         print("指定されたパスは存在しないか、フォルダではありません。")
         return
 
+    cnt_success = cnt_err = 0
     for item in os.listdir(folder):
         full_path = os.path.join(folder, item)
         if os.path.isfile(full_path) and is_valid_filename(item):
             move_file(folder, item)
+            cnt_success += 1
+        else:
+            cnt_err += 1
+
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print(f"成功:{cnt_success:3d}、失敗:{cnt_err:3d}、 ===> 合計:{cnt_success+cnt_err:3d}")
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
 if __name__ == "__main__":
     main()
