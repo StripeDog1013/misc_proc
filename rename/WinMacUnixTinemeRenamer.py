@@ -52,7 +52,7 @@ try:
                 print(f"フォーマット形式対象外:{file.name} --> {e}")
                 cnt_err += 1
     print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    print(f"成功:{cnt_success:3d}、失敗:{cnt_err:3d}、除外:{cnt_skip:3d} ===> 合計:{cnt_success+cnt_err+cnt_skip:3d}")
+    print(f"成功:{cnt_success:3d}｜失敗:{cnt_err:3d}｜除外:{cnt_skip:3d} ===> 合計:{cnt_success+cnt_err+cnt_skip:3d}")
     print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
     
 except Exception as e:
