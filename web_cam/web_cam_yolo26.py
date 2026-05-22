@@ -14,10 +14,11 @@ def positive_int(value):
 
 def select_model(mode):
     models = {
-        "n": "./yolo8/yolov8n.pt",
-        "s": "./yolo8/yolov8s.pt",
-        "m": "./yolo8/yolov8m.pt",
-        "l": "./yolo8/yolov8l.pt",
+        "n": "./yolo26/yolo26n.pt",
+        "s": "./yolo26/yolo26s.pt",
+        "m": "./yolo26/yolo26m.pt",
+        "l": "./yolo26/yolo26l.pt",
+        "x": "./yolo26/yolo26x.pt"
     }
     return models[mode]
 
@@ -45,7 +46,7 @@ def select_device(device):
 
 parser = argparse.ArgumentParser(description="カメラIDを指定してYOLO検出")
 parser.add_argument("-c", "--cam", type=positive_int, default=0, help="カメラ識別番号 (0以上)")
-parser.add_argument("-m", "--mode", choices=["n", "s", "m", "l"], default="n", help="学習モデル")
+parser.add_argument("-m", "--mode", choices=["n", "s", "m", "l", "x"], default="n", help="学習モデル")
 parser.add_argument(
     "-d",
     "--device",
@@ -90,6 +91,7 @@ while True:
     )
 
     annotated_frame = results[0].plot()
+    print(f"{(results[0][0])}")
 
     cv2.imshow("YOLO Detection", annotated_frame)
     if cv2.waitKey(1) & 0xFF == ord("q"):

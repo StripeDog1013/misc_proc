@@ -175,3 +175,6 @@ cython_debug/
 
 # YOLO model
 *.pt
+
+# MacOS
+*.DS_store
