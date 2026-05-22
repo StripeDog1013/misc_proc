@@ -91,7 +91,6 @@ while True:
     )
 
     annotated_frame = results[0].plot()
-    print(f"{(results[0][0])}")
 
     cv2.imshow("YOLO Detection", annotated_frame)
     if cv2.waitKey(1) & 0xFF == ord("q"):
